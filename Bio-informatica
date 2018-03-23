@@ -1,0 +1,163 @@
+package bio_informatica;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Random;
+
+public class programa {
+	
+	private BufferedWriter br;
+
+	public String getNucleotide() 
+	{
+	// para generar las letras aletoreas primero les asigno un numero en que retornaran 
+		Random rd = new Random();
+		switch(rd.nextInt(4))
+		{
+		case 0: 	return"A";
+		case 1:		return"C";
+		case 2:		return"G";
+		case 3:		return"T";
+		default:		return"";
+		}
+	}
+	
+	public String sequence(int lenght) 
+	{
+		//le doy una longitud o tama�o de la secuencia de letras aleatoreas
+		if(lenght==1)
+			
+			return getNucleotide();
+		
+		else
+			
+			return getNucleotide()+ sequence(lenght-1);
+	}
+	
+	public String getCromosoma()
+	{
+		// para generar el cromosoma en el que esta hubicado 
+		// le doy el nombre chr y en un aleatoreo le asigno un numero del 1 al 24
+		Random rd= new Random();
+		return "chr"+(rd.nextInt(23)+1);
+	}
+	
+	public void Practica()
+	{
+		try
+		{
+			FileWriter file=new FileWriter("secuence.txt");
+			br = new BufferedWriter(file);
+			
+		// Primero le doy una cantidad de secuencias que mostrara la cual sera de 100000
+			Random rd = new Random();
+			int length, start;
+			int reads=100000;
+			
+			for (int i=0;i<reads;i++)
+			{
+		//la longitud o tama�o de la secuencia sera de 5 a 50  "posiciones"
+				length=rd.nextInt(50)+6;
+		//El incio podra mostrarse de 1 a 1000 en la posicion incial y para la final se le suma la longitud y se le resta 1
+				start=rd.nextInt(1000)+1;
+				
+				br.write(sequence(length)+","+getCromosoma()+","+start+","+(start+length-1)+"\n");
+			}
+			
+		}
+		catch(Exception  ex) {}
+		
+	}
+	
+	public class SearchMotif {
+	public int ocurrences = Integer.MIN_VALUE;
+	public String motif="";
+	private BufferedReader rd;
+	
+	// Para buscar el motif 
+	// priemro la cantidad de combinaciones que puden haber dependiendo del la pocicion de cada letra
+	
+	public void getCombinations(String subsequence,int size)
+	{
+		String tempSequence;
+		
+		if(size==1)
+		{
+			tempSequence = subsequence +"A";
+			verifyCandidate(tempSequence);
+			
+			tempSequence = subsequence +"C";
+			verifyCandidate(tempSequence);
+			
+			tempSequence = subsequence +"G";
+			verifyCandidate(tempSequence);
+			
+			tempSequence = subsequence +"T";
+			verifyCandidate(tempSequence);
+		}
+		else
+		{
+			getCombinations(subsequence +"A",size -1);
+			getCombinations(subsequence +"C",size -1);
+			getCombinations(subsequence +"G",size -1);
+			getCombinations(subsequence +"T",size -1);
+		}
+	} 
+	
+	// al verificar el candidato mira la cantidad de ocurrencias cuantas veces aprece un motif 
+	public void verifyCandidate(String motif)
+	{
+		int temp =countOcurrences(motif);
+		if(temp >ocurrences)
+		{
+			this.motif = motif;
+			this.ocurrences=temp;
+		}
+	}
+	
+	// Y aplico lo anterior para recorrer el archivo leer secuencia por cecuencia y definir cual es el motif ganador
+		public int countOcurrences(String candidate)
+	{
+		int counter =0;
+		
+		try
+		{
+			FileReader file=new FileReader("secuence.txt");
+			rd = new BufferedReader(file);	
+			
+			String sequence = rd.readLine();
+			int length = motif.length();
+			
+			while(sequence !=null)
+			{
+				for(int i= 0; i <sequence.length()-length +1;i++)
+				{
+					if(sequence.subSequence(i, i+3).equals(motif))
+						counter +=1;
+				}
+			}
+		}
+		catch(Exception ex) {}
+		
+		return counter;
+	}
+	}
+	
+		public static void main (String[] args) {
+			programa file = new programa();
+			file.Practica();
+				
+			SearchMotif sm = new SearchMotif();
+			sm.getCombinations("",3);
+				
+			System.out.println(sm.ocurrences + " - "+ sm.motif);
+			}
+	
+
+}
+
+
+
+
