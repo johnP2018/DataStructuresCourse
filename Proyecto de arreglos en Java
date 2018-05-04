@@ -1,0 +1,136 @@
+import java.io.*;
+public class Bubble_Sort {
+	
+	static void burbuja(int arreglo[])
+	{
+		   for(int i = 0; i < arreglo.length - 1; i++)
+		   {
+	           for(int j = 0; j < arreglo.length - 1; j++)
+	           {
+	               if (arreglo[j] > arreglo[j + 1])
+	               {
+	            	   int tmp = arreglo[j];
+	                   arreglo[j] = arreglo[j+1];
+	                   arreglo[j+1] = tmp;
+	               }
+	           }     
+		   }
+	}
+  public class Lineal_Search {
+	
+	static int busqueda(int arreglo[], int A)
+	{
+		int indice = -1;
+	
+		for(int i = 0; i<arreglo.length;i++)
+		{
+			if (arreglo[i] == A)
+			{
+				indice=i;
+			}
+			
+		}
+		
+		return indice;
+	}
+  public class Merge_Sort {
+
+	public int[] MergeSort (int arreglo[])
+	{
+		if (arreglo.length > 1)
+		{
+		
+			// lo dividimos en dos
+			int ParteI = arreglo.length/2;
+			int ParteD = arreglo.length-ParteI;
+			int []arreglo1= new int[ParteI];
+			int []arreglo2= new int[ParteD];
+			// guardamos los numeros de la parte izq
+			for(int i=0;i<ParteI;i++)
+			{
+				arreglo1[i]=arreglo[i];
+			}
+			// guardamos los numeros de la parte Der
+			for(int i=ParteI;i<ParteI+ParteD;i++)
+			{
+				arreglo2[i-ParteI]=arreglo[i];
+			}
+			
+			// ordenamos los arreglos
+			arreglo1 = MergeSort(arreglo1);
+			arreglo2 = MergeSort(arreglo2);
+			
+	
+		
+			int i = 0;
+			int j = 0;
+			int k = 0;
+			
+			while (arreglo1.length != j && arreglo2.length != k) 
+			{
+				if (arreglo1[j] < arreglo2[k])
+				{
+				
+					arreglo[i]=arreglo1[j];
+					i++;
+					j++;
+				}
+				else
+				{
+			
+					arreglo[i]=arreglo2[k];
+					i++;
+					k++;
+				}
+			}
+			
+			while (arreglo1.length!=j)
+			{
+				arreglo[i]=arreglo1[j];
+				i++;
+				j++;
+			}
+			while (arreglo2.length!=k) 
+			{
+				arreglo[i]=arreglo2[k];
+				i++;
+				k++;
+			}
+		
+	
+		}
+		return arreglo;
+	}
+  public static void main(String[]args) throws IOException {
+		// recibo por consola mi arreglo separado por comas 
+		   BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		 // Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		   
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+          System.out.println("Numero a buscar");
+		   String k = br.readLine();
+		   int L = Integer.parseInt(k);
+		   
+		   Merge_Sort ordena=new Merge_Sort();
+		   
+		   arreglo= ordena.MergeSort(arreglo);
+		   
+		   for(int i=0; i <arreglo.length; i++)
+			   System.out.print(arreglo[i]+(" "));
+         
+       System.out.println("se encuentra en el indice "+busqueda(arreglo,L));
+          burbuja(arreglo);
+	 
+	      for(int i = 0;i < arreglo.length; i++)
+       {
+           System.out.print(arreglo[i]+(";"));
+       }
+	}  
+         
+       
+       
+  
