@@ -1,0 +1,194 @@
+import java.io.*;
+
+public class Problema_2_palindromo {
+
+		public static void main(String[]args) throws IOException
+		{
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			
+			System.out.println("Digite la palabra");
+			String a =br.readLine();
+		
+			
+			int i=0;
+			int j=a.length()-1;
+			boolean veri=false;
+			do
+			{
+				
+				char letra1= a.charAt(i);
+				char letra2= a.charAt(j);
+				
+				if (letra1==letra2)
+				{
+					veri=true;
+					i++;
+					j=j-1;
+				}
+				else
+				{
+					veri=false;
+				}
+				
+				
+			} while(i<a.length()/2 && veri==true);
+			
+			if (veri== true)
+			{
+				System.out.println("SI");
+			}
+			else
+			{
+				System.out.println("NO");
+			}
+			
+		}
+}
+
+
+public class Problema_7_Es_confidencial {
+	
+	static String orden(String a) 
+	{
+		if (a.length()==1)
+		{
+			return a;
+		}
+		else
+		{
+			int puntomedio=a.length()/2;
+			char principio=a.charAt(puntomedio);
+			
+			a.replace(a.charAt(0),principio);
+			
+			String parI=a.substring(0, puntomedio-1);
+			String ParD=a.substring(puntomedio+1, a.length()-1);
+			
+			if(parI.length()>1)
+			{
+				orden(parI);
+			}
+			if (ParD.length()>1)
+			{
+				orden(ParD);
+			}
+			return a;
+		}
+		
+	}
+	
+	public static void main(String[]args) throws IOException
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("Digite la palabra");
+		String a =br.readLine();
+		
+	
+		
+		System.out.println(orden(a));
+	}
+}
+
+public class Problema4_ValoAscii {
+
+	public static void main(String[]args) throws IOException
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("Digite el caracter");
+		String a = br.readLine();
+		
+		char letra=a.charAt(0);
+				
+		int valor = (int) letra;
+		
+		System.out.println("El valor Ascii de la letra "+a+" es "+valor);
+	}
+}
+
+public class Prim {
+ static Scanner sc = new Scanner(System.in);
+ 
+ 	static boolean primo(int num, int c)
+ 	{
+ 		if (num % c == 0 && num !=2)
+ 		{
+ 			return false;
+ 			
+ 		}
+ 		else
+ 		{
+ 			if (c > num/2)
+ 			{
+ 				return true;
+ 			}
+ 			else
+ 			{
+ 				return primo(num,c+1);
+ 			}
+ 		}
+ 	}
+
+ 	public static void main(String[]args) {
+ 		
+ 		int num,i;
+ 		int[] primos = new int[100];
+ 		int contador=0;
+ 		
+ 		System.out.println("hasta que numero quiere averiguar: ");
+ 		num = sc.nextInt();
+ 		for (i=0;i<num;i++)
+ 		{
+ 			if (primo(i,2)) 
+ 			{
+ 				primos[contador]=i;
+ 				contador = contador + 1;
+ 		 
+ 			}
+ 		
+ 		}
+ 		for (i=0;i<contador;i++) 
+ 		{
+ 			System.out.println(primos);
+ 		}
+ 	}
+
+}
+
+public class Problema_1 {
+
+	 public static void main(String[] args) throws IOException {	
+		 
+		 //recibo los casos de prueba.
+		 BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		 BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+		 
+		 bw.write("Numero de casos de prueba");
+		 String a= br.readLine();
+		 int T= Integer.parseInt(a);
+		 for (int i=0; i<T;i++)
+		 {
+			bw.write("Numero de amigos para la fiesta");
+		 	String b= br.readLine();
+		 	int N= Integer.parseInt(b);
+		 	bw.write("Numero de chocolates del paquete");
+		 	String c= br.readLine();
+		 	int M= Integer.parseInt(c);
+		 	int modulo = M%N;
+		 	if (modulo ==0)
+		 	{
+		 		System.out.println("Si");
+		 	}
+		 	if (modulo >=1)
+		 	{
+		 	System.out.println("No");
+		 	}
+		 }
+		 
+	}
+
+}
+
+
+
