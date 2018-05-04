@@ -1,0 +1,131 @@
+def quicksort(L):
+    quicksort1(L,0, len(L)-1)
+
+def quicksort1(L, first, last):
+
+    i = first
+    j = last    
+    pivote = (L[i] + L[j]) / 2
+
+    # iteramos hasta que i no sea menor que j
+    while i < j:
+        # iteramos mientras que el valor de L[i] sea menor que pivote
+        while L[i] < pivote:
+           
+            i+=1
+        # iteramos mientras que el valor de L[j] sea mayor que pivote
+        while L[j] > pivote:
+           
+            j-=1
+
+        if (i <= j):
+            # creamos una variable temporal para guardar el valor de L[j]
+            x = L[j]
+            # intercambiamos los valores de L[j] y L[i]
+            L[j] = L[i]
+            L[i] = x
+            # incrementamos y decrementamos i y j respectivamente
+            i+=1
+            j-=1
+
+    # si first es menor que j mantenemos la recursividad
+    if first < j:
+        L = quicksort1(L, first, j)
+    # si last es mayor que i mantenemos la recursividad
+    if last > i:
+        L = quicksort1(L, i, last)
+
+    # devolvemos la lista ordenada
+    return L
+    
+def InterpolationSearch (A, x):
+    lowerBound  = 0
+    upperBound  = (len(A)-1)
+    index  = -1
+    while (lowerBound < upperBound): 
+        middlePoint = lowerBound + (((upperBound - lowerBound) / (A[upperBound] - A[lowerBound])) * (x - A[lowerBound]))
+        if (x == A[middlePoint]):
+            index = middlePoint
+            break
+        else:
+            if (x < A[middlePoint]):
+                upperBound = middlePoint-1
+            else:
+                lowerBound = middlePoint +1
+                
+    if (lowerBound == upperBound and A[lowerBound] == x):
+        index = lowerBound
+
+    return index
+
+def insertionshort(A):
+    # recorro el arreglo desde la primera segunda posicion de la lista
+    for i in range(1,len(A)):
+        # guardamos el valor el cual se encuentra la pocicion
+        x=A[i]
+        # el indice en el que esta menos 1 ya que arrancamos una posicion adelantada
+        indice=i-1
+        #comprobamos que el indice no salga del rango
+        while(indice>=0):
+            # hacemos el cambio si se cumple la condicion 
+            if(x<A[indice]):
+                A[indice+1]=A[indice]
+                #cambiamos la posicion y le asignamos la nueva
+                A[indice]=x 
+                indice=indice-1
+            # si no se cumple lo dejamos hay
+            else:
+                break
+    # retornamos el arreglo ya ordenado
+    return A
+    
+    
+def BinarySearch (A, x):
+    
+    lowerBound =0
+    upperBound = (len(A)-1)
+    index = -1
+
+    while (lowerBound < upperBound):
+        middlePoint=(lowerBound + upperBound) /2
+    if x == A[middlePoint]:
+        index =middlePoint
+    else:
+        if x < A[middlePoint]:
+            upperBound = middlePoint -1
+        else:
+            lowerBound =middlePoint +1
+            
+    if lowerBound == upperBound and A[lowerBound] == x:
+        index=lowerBound
+
+    return index
+    
+numeros = input().split(",")
+numeros_=[]
+for j in range (len(numeros)):
+    numeros_.append(int(numeros[j]))
+
+x= input("Numero a buscar")
+
+quicksort(numeros_)
+print(numeros_) 
+
+insertionshort(numeros_)
+print(numeros_)
+
+
+indice= BinarySearch(numeros_, x)
+
+if indice!=-1:
+    print("El numero esta en el indice: ", indice)
+else:
+    print("El numero no esta")
+
+
+indice  =InterpolationSearch(numeros_, x)
+
+if indice!=-1:
+    print("El numero esta en el indice: ", indice)
+else:
+    print("El numero no esta")
