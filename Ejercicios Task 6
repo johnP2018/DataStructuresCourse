@@ -1,0 +1,221 @@
+import java.io.*;
+
+
+public class Problema1 {
+		
+ 
+	 public static void main(String[] args) throws IOException {
+		 
+		 // recibo por consola mi arreglo separado por comas 
+     BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		 // Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		   
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+		   
+		 // Pregunto cual es el residuo que me pondra la condicion
+		   System.out.println("residuo a buscar");
+		   String k = br.readLine();
+		   int L = Integer.parseInt(k);
+		   
+		 // Un contador para guaradar la cantidad de parejas
+		   int contador= 0;
+		   
+		 // El primer ciclo es para pasar por todo mi arreglo y que no solo compare un unico numero
+		   for (int i=0; i < arreglo.length;i++)
+		   {
+			   // El segundo ciclo servira para comparar el numero tomado anteriomente con todos los numeros del arreglo
+			   for(int j=0; j < arreglo.length;j++)
+			   {
+				  // Cada ves que se cumpla una condicion abra sido una pareja y se le sumara al contador
+				   if (arreglo[j]-arreglo[i]==L)
+				   {
+					   contador +=1;
+				   }
+			   }
+		   }
+		   // Imprimo la cantidad de parejas que cumplieron la condicion
+		   System.out.println("la cantidad de parejas que cumplen con la condicion es de: "+contador+" en total");
+	   }
+}
+
+public class Problema2 
+{
+	// Utilizo un metodo para poder imprimer el arreglo y comprovaar que este bien
+	public void printArray(int[]array)
+	{
+		BufferedWriter bw= new BufferedWriter (new OutputStreamWriter(System.out));
+				try
+		{
+				for (int i = 0; i < array.length; i++)
+					bw.write(array[i] + " ");
+		}
+		catch (Exception ex) {}
+	}
+
+	public static void main(String[] args) throws IOException {
+		 
+		 // recibo por consola mi arreglo separado por comas 
+		   BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		// Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		   
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+		   
+		 //Este sera la posicion que ayudara a comprovar que no se multiplique el numero por la misma posicion en la que esta
+		
+		 // Multi gardara la multiplicacion de los numeros para pasarla al final a la posicion del arreglo correspondiente
+		   int multi=1;
+		 // El primer ciclo nos dira en que posicion vamos
+		   for(int i = 0; i < arreglo.length;i++)
+		   {
+			   // El segundo ciclo multiplicara tosdo el arreglo para guardarlo en la indicada posicion
+			   for(int j = 0; i < arreglo.length;j++)
+			   {
+				if (i==j) 
+				{
+					j+=1;
+				} 
+					multi = multi * arreglo[j];
+				
+			   }
+			   
+			   arreglo[i]=multi;
+		   }
+		   
+		   Problema2 imprimir = new Problema2();
+		   imprimir.printArray(arreglo);
+	}
+}
+
+public class Problema3 {
+	
+	public static void main(String[] args) throws IOException {
+		 // recibo por consola mi arreglo separado por comas 
+		   BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		// Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		   
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+		   
+		   // Esta variable nos srvira para averiguar cual es el numero mayor de nuestro arreglo
+		   // Y posteriormente sera la longitud de nuestro arreglo auxiliar
+		   int max = Integer.MIN_VALUE;
+		   
+		   for (int i=0;i < arreglo.length;i++)
+		   {
+			   if (arreglo[i]>max)
+			   {
+				   max=arreglo[i];
+			   }
+		   }
+		   int [] auxiliar= new int[max +1];
+		   
+		   //Este ciclo sumara 1 al indice donde este el auxiliar ya que este es el arrego original
+		   for (int i=0;i < arreglo.length;i++)
+		   {
+			   auxiliar[arreglo[i]]+=1;
+		   }
+		   // Esta variable guardara el numero que no se repite
+		   int k= 0;
+		   // este ciclo buscara entre el arreglo auxiliar el que no cumpla la condicion sera el que no estrara repetido
+		   for (int i=0; i < auxiliar.length; i ++)
+		   {
+			   if (auxiliar[i]<2)
+			   {
+				   k = i;
+			   } 
+		   }
+		   
+		   System.out.println("El numero que no se repite es "+k);
+	}
+}
+
+public class Problema4 {
+	
+	public static void main(String[] args) throws IOException {
+		 // recibo por consola mi arreglo separado por comas 
+		   BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		// Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		 
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+		 
+		// Esta variable guardara el numero mas grande del arreglo
+		   int max = Integer.MIN_VALUE;
+		 // Esta variable gurdara el numero mas pequeño del arreglo
+		   int min= Integer.MAX_VALUE;
+		   
+		 // Buscamos el numero mas grande
+		   for(int i=0; i<arreglo.length;i++)
+		   {
+			   if (arreglo[i]>max)
+				   max=arreglo[i];
+		   }
+		 // Buscamos el numero mas pequeño
+		   for(int i=0; i<arreglo.length;i++)
+		   {
+			   if (arreglo[i]<min)
+				   min=arreglo[i];
+		   }
+		   
+		   // al restarlo nos dara el maximo beneficio que puede tener
+		   int MaxiBen= max-min;
+		   
+		   System.out.println("el maximo benefisio que puede sacar de la semana es de "+ MaxiBen);
+	}
+}
+
+public class Problema5 {
+	
+
+	public static void main(String[] args) throws IOException {
+		 
+		 // recibo por consola mi arreglo separado por comas 
+		   BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		   String line = br.readLine();
+		   String[] numeros = line.split(",");
+		// Creo otro arreglo el cual servira para pasar mi arreglo que es una cadena a ser Entero
+		   int[]arreglo=new int[numeros.length];
+		   
+		   for(int i=0; i <numeros.length; i++)
+			   arreglo[i] = Integer.parseInt(numeros[i]);
+		   
+		 // recorro el arreglo para buscar la progresion
+		   
+		   int min = 1000;
+		   int faltante=0;
+		   
+		   for (int i = arreglo.length-1; i>0; i = i -1)
+		   {
+			   int progresion = arreglo[i]-arreglo[i-1];
+			   if (progresion<min)
+			   {
+				   min=progresion;
+			   }
+		   }
+		   
+		   for(int i=arreglo.length-1;i>0;i = i-1)
+		   {
+			   if ((arreglo[i]-arreglo[i-1])!= min)
+			   {
+				   faltante= arreglo[i]-min;
+			   }
+		   }
+		   
+		   System.out.println("el numero faltante en la progresion es "+ faltante);
+	}
+		   
+}
